@@ -2,31 +2,35 @@ function [outputArg1,outputArg2] = proj1_alex(inputArg1,inputArg2)
 %% Alex Topping
 %% ECE 441 Project 1
 %% DC Motor Position Control
-
+clear all
+close all
+clc
 
 %% Constants
 J = 1.13 * 10^(-2); % rotor intertia
 b = 0.028; % viscous friction coefficient 
 K = 0.067; % 
 R = 0.45; % Armature resitance
+Kp = 10000;
 
-%% Equation
-syms v theta s THETA V % capitalized variables are for use in s-domain
+%% Transfer Equations
+syms s
+num = [(K/R)];
+plant_denom = J*s^2 + (b+(K^2)/R)*s ;
+plant = tf(num, sym2poly(plant_denom))
+rlocus(plant)
+title("plant")
+hold on
 
-theta_dot = diff(theta);
-coeff = b + (K^2)/R
-
-
-term1 = J * (s^2) * THETA
-term2 = coeff * s * THETA
-term3 = (K/R)*V
-
-
-num = factor(term1 + term2, THETA)
-denom = factor(term3, V)
-
-tf = num(1)/denom(1)
+figure
+system = feedback(Kp*plant,1)
+rlocus(system)
+title("system")
 
 
+W = tf(1, [1 0]);
+disturbance = feedback(plant*Kp*W,1);
+
+step(disturbance)
 end
 

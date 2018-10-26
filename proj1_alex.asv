@@ -11,20 +11,13 @@ K = 0.067; %
 R = 0.45; % Armature resitance
 
 %% Equation
-syms v theta s THETA V % capitalized variables are for use in s-domain
+syms s
+num = [(K/R)];
+plant_denom = J*s^2 + (b+(K^2)/R)*s ;
+plant = tf(num, sym2poly(plant_denom))
+rlocus(plant)
 
-theta_dot = diff(theta);
-coeff = b + (K^2)/R;
-
-
-term1 = J*(((laplace( exp(v), THETA ) )^(-1) + 1)^2) % A really shitty way to make the symbolic variable I want and I am a worse person because of it
-term2 = laplace(coeff * theta_dot, THETA)
-term3 = laplace((K/R)*v, V)
-
-
-num = solve(term1 + term2 == term3, V)
-denom = 
-
-
+system_denom = 
+system = tf()
 end
 
