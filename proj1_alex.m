@@ -11,7 +11,7 @@ J = 1.13 * 10^(-2); % rotor intertia
 b = 0.028; % viscous friction coefficient 
 K = 0.067; % 
 R = 0.45; % Armature resitance
-Kp = 10000;
+Kp = 100;
 
 %% Transfer Equations
 syms s
@@ -26,11 +26,11 @@ figure
 system = feedback(Kp*plant,1)
 rlocus(system)
 title("system")
+gm = margin(system) % If gm = infinity, Kp can be anything, thus Kp > 0
 
+error_ss = 1/Kp; % 
 
-W = tf(1, [1 0]);
-disturbance = feedback(plant*Kp*W,1);
-
-step(disturbance)
+disturbance = plant/(1+Kp*plant)
+ natural_freq = sqrt()
 end
 
