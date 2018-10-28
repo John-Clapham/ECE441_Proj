@@ -36,16 +36,25 @@ kd = 1692;
 ki = 1;
 
 numtemp = ((kd*k)/r);
-numtemp1 = ((k+kp)/r);
-numtemp2 = (ki*k)/r;
-dentemp = b+(((k^2)+(kd*k))/r);
-sys = tf([numtemp numtemp1 numtemp2],[j dentemp numtemp numtemp2]);
- 
-figure
-subplot(211)
-impulse(sys)
-subplot(212)
-step(sys)
+numtemp1 = 
+temp = (b+(((k^2)+(kd*k))/r));
+temp1 =
+sys = tf([(kd*k/r) ((kp*k)/r)],[j temp (kp*k)/r]);
+% 
+% figure
+% subplot(211)
+% impulse(sys)
+% subplot(212)
+% step(sys)
 
+%temp = (b+(((k^2)+(kd*k))/r));
+%sys = tf([(kd*k/r) ((kp*k)/r)],[j temp (kp*k)/r]);
+% 
+% figure
+% subplot(211)
+% impulse(sys)
+% subplot(212)
+% step(sys)
 
+%alex likes gitextensions too much
 
